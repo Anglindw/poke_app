@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 
 from app.auth.forms import UserCreationForm
-from app.models import User
+from app.models import User, db
 
 auth = Blueprint('auth', __name__, template_folder='auth_templates')
 
@@ -17,9 +17,12 @@ def signup():
             print(username, email, password)
 
             user = User(username, email, password)
+
+            user.save_to_db()
+            return redirect(url_for('auth.login'))
         
     return render_template('signup.html', form=form)
 
 @auth.route('/login')
 def login():
-    return render_template(login.html)
+    return render_template('login.html')

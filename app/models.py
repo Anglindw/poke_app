@@ -15,6 +15,10 @@ class User(db.Model):
         self.username = username
         self.email = email
         self.password = password
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
         
 
 class Pokedex(db.Model):
