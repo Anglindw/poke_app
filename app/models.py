@@ -1,20 +1,22 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username =  db.Column(db.String(50), nullable=False, unique=True)
-    email = db.Column(db.String(50), nullable=False, unique=True)
-    password =  db.Column(db.String(50), nullable=False)
+    username =  db.Column(db.String(200), nullable=False, unique=True)
+    email = db.Column(db.String(250), nullable=False, unique=True)
+    password =  db.Column(db.String(300), nullable=False)
     post = db.relationship('Pokedex', backref='Discoverer', lazy = True)
 
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
 
     def save_to_db(self):
         db.session.add(self)
@@ -23,7 +25,7 @@ class User(db.Model):
 
 class Pokedex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, unique=True)
+    entry = db.Column(db.String(50), nullable=False, unique=True)
     img_url = db.Column(db.String(), nullable=False, unique=True)
     type = db.Column(db.String(50), nullable=False )
     ability = db.Column(db.String(50), nullable=False)
@@ -36,8 +38,8 @@ class Pokedex(db.Model):
     date_created = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, name, img_url, type, ability, hp, attack, defense, special_attack, special_defense, speed, date_created, user_id):
-        self.name = name
+    def __init__(self, entry, img_url, type, ability, hp, attack, defense, special_attack, special_defense, speed, date_created, user_id):
+        self.entry = entry
         self.img_url = img_url
         self.type = type
         self.ability = ability
@@ -49,4 +51,8 @@ class Pokedex(db.Model):
         self.speed = speed
         self.date_created = date_created
         self.user_id = user_id
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
         

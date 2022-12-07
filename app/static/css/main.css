@@ -2,3 +2,12 @@
 .navbar .nav-link {
   color: rgb(29, 23, 23) !important;
 }
+
+.main_background{
+ 
+  background-image: url('https://th.bing.com/th/id/R.430b82a84b7235ea639a694a03af508c?rik=UHLaeQDDa8I74A&pid=ImgRaw&r=0');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  
+}

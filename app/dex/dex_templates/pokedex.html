@@ -1,6 +1,7 @@
 {% extends 'base.html'%}
 {% block content %}
-<form>
-{{form.entry(class="form-control", placeholder="Pokedex Entry")}}
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{form.entry(class="form-control", placeholder="Pokedex Entry")}}
 </form>
 {% endblock %}
