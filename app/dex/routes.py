@@ -1,11 +1,7 @@
-from urllib import response, request
-from flask import Blueprint, render_template, request, url_for
+
+from flask import Blueprint, Request, render_template, request, url_for, request_started, request_finished
 from flask_login import login_required
-
 from app.dex.forms import PokedexEntry
-
-import urllib.request, json
-
 from app.models import Pokedex
 
 dex = Blueprint('dex', __name__, template_folder='dex_templates')
@@ -44,8 +40,8 @@ def pokedex():
     return render_template('pokedex.html', form=form)
 
 
-@dex.pokeview('/Pokebox')
-def pokeview():
+#@dex.pokeview('/Pokebox')
+#def pokeview():
     boxs = Pokedex.query.all()
     print(boxs)
     return render_template('pokeview.html', boxs=boxs)
