@@ -1,23 +1,20 @@
 {% extends 'base.html'%}
 {% block content %}
 {% for box in boxs %}
-<div class="card mx-auto" style="width: 18rem;">
-    <img class="card-img-top" src="{{box.img_url}}" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{box.name}}</h5>
-      <p class="card-text">{{box.ability}}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{box.hp}}</li>
-      <li class="list-group-item">{{box.attack}}</li>
-      <li class="list-group-item">{{box.defense}}</li>
-      <li class="list-group-item">{{box.special_attack}}</li>
-      <li class="list-group-item">{{box.special_defense}}</li>
-      <li class="list-group-item">{{box.speed}}</li>
-    </ul>
-    <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
-  </div>
+  <a class="card mx-auto text-decoration-none m-5 rounded border-warning border-5" style="width: 30rem;" href="/pokedex/{{box.id}}">
+      <img class="card-img-top" src="{{box.img_url}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title text-dark">{{box.entry.title()}}</h5>
+        <p class="card-text text-dark">Abiliy: {{box.ability.title()}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">HP: {{box.hp}}</li>
+        <li class="list-group-item">Attack: {{box.attack}}</li>
+        <li class="list-group-item">Defense: {{box.defense}}</li>
+        <li class="list-group-item">Special Attack: {{box.special_attack}}</li>
+        <li class="list-group-item">Special Defense: {{box.special_defense}}</li>
+        <li class="list-group-item">Speed: {{box.speed}}</li>
+      </ul>
+   
+{% endfor %}
 {% endblock %}

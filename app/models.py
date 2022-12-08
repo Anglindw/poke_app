@@ -27,7 +27,6 @@ class Pokedex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     entry = db.Column(db.String(50), nullable=False, unique=True)
     img_url = db.Column(db.String(), nullable=False, unique=True)
-    type = db.Column(db.String(50), nullable=False )
     ability = db.Column(db.String(50), nullable=False)
     hp = db.Column(db.String(50), nullable=False)
     attack = db.Column(db.String(50), nullable=False)
@@ -38,10 +37,9 @@ class Pokedex(db.Model):
     date_created = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, entry, img_url, type, ability, hp, attack, defense, special_attack, special_defense, speed, date_created, user_id):
+    def __init__(self, entry, img_url, ability, hp, attack, defense, special_attack, special_defense, speed, user_id):
         self.entry = entry
         self.img_url = img_url
-        self.type = type
         self.ability = ability
         self.hp = hp
         self.attack = attack
@@ -49,10 +47,14 @@ class Pokedex(db.Model):
         self.special_attack = special_attack
         self.special_defense = special_defense
         self.speed = speed
-        self.date_created = date_created
         self.user_id = user_id
 
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def  delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
         

@@ -1,7 +1,7 @@
 from flask import Flask
 from config import Config
 from flask_migrate import Migrate
-from .models import db, User
+from .models import db, User, Pokedex
 from .auth.routes import auth
 from .dex.routes import dex
 from flask_login import LoginManager

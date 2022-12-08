@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from app.auth.forms import UserCreationForm, LoginForm
 from app.models import User, db
@@ -41,10 +41,11 @@ def login():
                     print("Logged In")
                     login_user(user)
                     print(user)
+                    return redirect(url_for('dex.pokeview'))
                 else:
-                    print('No')
+                    flash('Wrong Password')
             else:
-                print('No')
+                flash('Wrong username')
 
 
 
